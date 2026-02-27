@@ -1,0 +1,52 @@
+@font-face {
+    font-family: 'OpenDyslexic';
+    src: url('/fonts/OpenDyslexic-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'OpenDyslexic';
+    src: url('/fonts/OpenDyslexic-Bold.otf') format('opentype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+/* Add italic/bold-italic if you have those files */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base font controlled by body class */
+body.font-dyslexic {
+    font-family: 'OpenDyslexic', 'Lexend', sans-serif;
+}
+
+body.font-default {
+    font-family: 'Lexend', sans-serif;
+}
+
+/* Reading/learning elements – keep size/spacing, inherit font */
+.reading-text,
+.word-card,
+.phoneme-display,
+.activity-word,
+.story-text {
+    font-size: 20px;
+    line-height: 2.0;
+    letter-spacing: 0.05em;
+}
+
+/* Optional: ensure headings and other elements also inherit */
+h1,
+h2,
+h3,
+p,
+button,
+a,
+input,
+label {
+    font-family: inherit;
+    /* they'll get from body */
+}

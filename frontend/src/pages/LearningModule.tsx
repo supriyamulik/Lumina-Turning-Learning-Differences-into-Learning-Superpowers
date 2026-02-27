@@ -6,64 +6,64 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const modules = [
-    {
-        id: "alphabet",
-        title: "Alphabet",
-        subtitle: "A → Z",
-        description: "Learn every letter, its sound, and daily words through See, Hear & Speak!",
-        emoji: "🔤",
-        features: ["Grid View", "Zoom & Phonics", "Echo Mic", "Daily Words"],
-        route: "/alphabetmodule",   // ✅ FIXED (was "/learning/alphabet")
-        cardBg: "#FFFDF5",
-        cardBorder: "#E8C97A",
-        badgeText: "26 Letters",
-        badgeBg: "#FEF3C7",
-        badgeColor: "#92400E",
-        btnBg: "linear-gradient(135deg, #E8920C, #D97706)",
-        chipBg: "#FEF9EC",
-        chipBorder: "#F5D78A",
-        chipColor: "#A16207",
-        accentDot: "#F59E0B",
-    },
-    {
-        id: "numbers",
-        title: "Numbers",
-        subtitle: "1 → 10",
-        description: "Count, speak & connect numbers to real-life objects around you!",
-        emoji: "🔢",
-        features: ["Grid View", "Zoom & Count", "Echo Mic", "Daily Routine"],
-        route: "/learning/numbers",
-        cardBg: "#F5FEFA",
-        cardBorder: "#86EFBC",
-        badgeText: "10 Numbers",
-        badgeBg: "#DCFCE7",
-        badgeColor: "#14532D",
-        btnBg: "linear-gradient(135deg, #22C55E, #16A34A)",
-        chipBg: "#F0FDF4",
-        chipBorder: "#86EFBC",
-        chipColor: "#15803D",
-        accentDot: "#22C55E",
-    },
+  {
+    id: "alphabet",
+    title: "Alphabet",
+    subtitle: "A → Z",
+    description: "Learn every letter, its sound, and daily words through See, Hear & Speak!",
+    emoji: "🔤",
+    features: ["Grid View", "Zoom & Phonics", "Echo Mic", "Daily Words"],
+    route: "/learning/alphabet",
+    cardBg: "#FFFDF5",
+    cardBorder: "#E8C97A",
+    badgeText: "26 Letters",
+    badgeBg: "#FEF3C7",
+    badgeColor: "#92400E",
+    btnBg: "linear-gradient(135deg, #E8920C, #D97706)",
+    chipBg: "#FEF9EC",
+    chipBorder: "#F5D78A",
+    chipColor: "#A16207",
+    accentDot: "#F59E0B",
+  },
+  {
+    id: "numbers",
+    title: "Numbers",
+    subtitle: "1 → 10",
+    description: "Count, speak & connect numbers to real-life objects around you!",
+    emoji: "🔢",
+    features: ["Grid View", "Zoom & Count", "Echo Mic", "Daily Routine"],
+    route: "/learning/numbers",
+    cardBg: "#F5FEFA",
+    cardBorder: "#86EFBC",
+    badgeText: "10 Numbers",
+    badgeBg: "#DCFCE7",
+    badgeColor: "#14532D",
+    btnBg: "linear-gradient(135deg, #22C55E, #16A34A)",
+    chipBg: "#F0FDF4",
+    chipBorder: "#86EFBC",
+    chipColor: "#15803D",
+    accentDot: "#22C55E",
+  },
 ];
 
 export default function LearningModule() {
-    const navigate = useNavigate();
-    const [leoSpeaking, setLeoSpeaking] = useState(false);
+  const navigate = useNavigate();
+  const [leoSpeaking, setLeoSpeaking] = useState(false);
 
-    const leoSpeak = (text: string) => {
-        if ("speechSynthesis" in window) {
-            window.speechSynthesis.cancel();
-            const u = new SpeechSynthesisUtterance(text);
-            u.rate = 0.85; u.pitch = 1.1;
-            u.onstart = () => setLeoSpeaking(true);
-            u.onend = () => setLeoSpeaking(false);
-            window.speechSynthesis.speak(u);
-        }
-    };
+  const leoSpeak = (text: string) => {
+    if ("speechSynthesis" in window) {
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text);
+      u.rate = 0.85; u.pitch = 1.1;
+      u.onstart = () => setLeoSpeaking(true);
+      u.onend = () => setLeoSpeaking(false);
+      window.speechSynthesis.speak(u);
+    }
+  };
 
-    return (
-        <>
-            <style>{`
+  return (
+    <>
+      <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,1,700;9..144,0,800&family=Lexend:wght@400;500;600;700;800&display=swap');
 
         .lm-bg {
@@ -319,119 +319,119 @@ export default function LearningModule() {
         }
       `}</style>
 
-            <div className="lm-bg">
+      <div className="lm-bg">
 
-                <div className="lm-sun" />
-                <div className="lm-cloud lm-c1" />
-                <div className="lm-cloud lm-c2" />
-                <div className="lm-cloud lm-c3" />
+        <div className="lm-sun" />
+        <div className="lm-cloud lm-c1" />
+        <div className="lm-cloud lm-c2" />
+        <div className="lm-cloud lm-c3" />
 
-                <svg className="lm-trees" viewBox="0 0 1440 130" preserveAspectRatio="none">
-                    <ellipse cx="720" cy="125" rx="800" ry="30" fill="#8DC878" opacity="0.5" />
-                    {[60, 160, 280, 420, 540, 660, 780, 900, 1020, 1140, 1260, 1380].map((x, i) => {
-                        const h = 60 + (i % 3) * 22;
-                        const w = 36 + (i % 2) * 14;
-                        const trunk = 10 + (i % 2) * 4;
-                        const col = i % 3 === 0 ? "#5DB85A" : i % 3 === 1 ? "#4CAF50" : "#6DC96A";
-                        return (
-                            <g key={i} transform={`translate(${x}, ${130 - h})`}>
-                                <rect x={w / 2 - trunk / 2} y={h - 18} width={trunk} height={22} fill="#8B6534" rx="3" />
-                                <ellipse cx={w / 2} cy={h / 2} rx={w / 2} ry={h * 0.55} fill={col} opacity="0.9" />
-                                <ellipse cx={w / 2} cy={h / 2 - 8} rx={w / 2 - 4} ry={h * 0.42} fill={col} opacity="0.6" />
-                            </g>
-                        );
-                    })}
-                </svg>
+        <svg className="lm-trees" viewBox="0 0 1440 130" preserveAspectRatio="none">
+          <ellipse cx="720" cy="125" rx="800" ry="30" fill="#8DC878" opacity="0.5" />
+          {[60, 160, 280, 420, 540, 660, 780, 900, 1020, 1140, 1260, 1380].map((x, i) => {
+            const h = 60 + (i % 3) * 22;
+            const w = 36 + (i % 2) * 14;
+            const trunk = 10 + (i % 2) * 4;
+            const col = i % 3 === 0 ? "#5DB85A" : i % 3 === 1 ? "#4CAF50" : "#6DC96A";
+            return (
+              <g key={i} transform={`translate(${x}, ${130 - h})`}>
+                <rect x={w / 2 - trunk / 2} y={h - 18} width={trunk} height={22} fill="#8B6534" rx="3" />
+                <ellipse cx={w / 2} cy={h / 2} rx={w / 2} ry={h * 0.55} fill={col} opacity="0.9" />
+                <ellipse cx={w / 2} cy={h / 2 - 8} rx={w / 2 - 4} ry={h * 0.42} fill={col} opacity="0.6" />
+              </g>
+            );
+          })}
+        </svg>
 
-                <button className="lm-back" onClick={() => navigate("/dashboard")}>
-                    ← Dashboard
-                </button>
+        <button className="lm-back" onClick={() => navigate("/dashboard")}>
+          ← Dashboard
+        </button>
 
-                <div className="lm-content">
+        <div className="lm-content">
 
-                    <div className="lm-header">
-                        <div
-                            className="lm-leo-wrap"
-                            onClick={() => leoSpeak("Welcome to the Learning Cove! Choose Alphabet to learn letters and sounds, or Numbers to learn counting!")}
-                        >
-                            <div className={`lm-leo ${leoSpeaking ? "lm-leo-active" : ""}`}>🦁</div>
-                            <div className="lm-bubble">
-                                {leoSpeaking ? "🔊 Leo is speaking..." : "👆 Pick a module to begin!"}
-                            </div>
-                        </div>
-
-                        <h1 className="lm-title">
-                            Learning <em>feels like play.</em>
-                        </h1>
-                        <p className="lm-sub">Choose what you want to explore today 🌿</p>
-                    </div>
-
-                    <div className="lm-grid">
-                        {modules.map((mod) => (
-                            <div
-                                key={mod.id}
-                                className="lm-card"
-                                style={{ borderColor: mod.cardBorder, background: mod.cardBg }}
-                                onMouseEnter={() => leoSpeak(mod.description)}
-                                onMouseLeave={() => { window.speechSynthesis?.cancel(); setLeoSpeaking(false); }}
-                                onClick={() => navigate(mod.route)}
-                            >
-                                <div className="lm-blob" style={{ background: mod.accentDot }} />
-
-                                <div className="lm-card-top">
-                                    <div className="lm-ebox" style={{ background: mod.badgeBg }}>
-                                        {mod.emoji}
-                                    </div>
-                                    <span className="lm-badge" style={{ background: mod.badgeBg, color: mod.badgeColor }}>
-                                        {mod.badgeText}
-                                    </span>
-                                </div>
-
-                                <div className="lm-card-title">
-                                    {mod.title}
-                                    <span className="lm-card-sub">{mod.subtitle}</span>
-                                </div>
-
-                                <p className="lm-desc">{mod.description}</p>
-
-                                <div className="lm-chips">
-                                    {mod.features.map((f) => (
-                                        <span key={f} className="lm-chip"
-                                            style={{ background: mod.chipBg, borderColor: mod.chipBorder, color: mod.chipColor }}>
-                                            ✓ {f}
-                                        </span>
-                                    ))}
-                                </div>
-
-                                <button
-                                    className="lm-btn"
-                                    style={{ background: mod.btnBg }}
-                                    onClick={(e) => { e.stopPropagation(); navigate(mod.route); }}
-                                >
-                                    Start {mod.title} →
-                                </button>
-                            </div>
-                        ))}
-                    </div>
-
-                    <div className="lm-strip">
-                        <div className="lm-strip-inner">
-                            {[
-                                { icon: "🎙️", text: "Speak & Learn" },
-                                { icon: "⭐", text: "Earn Stars" },
-                                { icon: "📊", text: "Track Progress" },
-                                { icon: "🦁", text: "Leo Guides You" },
-                            ].map((item) => (
-                                <div key={item.text} className="lm-strip-item">
-                                    <span>{item.icon}</span>
-                                    <span>{item.text}</span>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-
-                </div>
+          <div className="lm-header">
+            <div
+              className="lm-leo-wrap"
+              onClick={() => leoSpeak("Welcome to the Learning Cove! Choose Alphabet to learn letters and sounds, or Numbers to learn counting!")}
+            >
+              <div className={`lm-leo ${leoSpeaking ? "lm-leo-active" : ""}`}>🦁</div>
+              <div className="lm-bubble">
+                {leoSpeaking ? "🔊 Leo is speaking..." : "👆 Pick a module to begin!"}
+              </div>
             </div>
-        </>
-    );
+
+            <h1 className="lm-title">
+              Learning <em>feels like play.</em>
+            </h1>
+            <p className="lm-sub">Choose what you want to explore today 🌿</p>
+          </div>
+
+          <div className="lm-grid">
+            {modules.map((mod) => (
+              <div
+                key={mod.id}
+                className="lm-card"
+                style={{ borderColor: mod.cardBorder, background: mod.cardBg }}
+                onMouseEnter={() => leoSpeak(mod.description)}
+                onMouseLeave={() => { window.speechSynthesis?.cancel(); setLeoSpeaking(false); }}
+                onClick={() => navigate(mod.route)}
+              >
+                <div className="lm-blob" style={{ background: mod.accentDot }} />
+
+                <div className="lm-card-top">
+                  <div className="lm-ebox" style={{ background: mod.badgeBg }}>
+                    {mod.emoji}
+                  </div>
+                  <span className="lm-badge" style={{ background: mod.badgeBg, color: mod.badgeColor }}>
+                    {mod.badgeText}
+                  </span>
+                </div>
+
+                <div className="lm-card-title">
+                  {mod.title}
+                  <span className="lm-card-sub">{mod.subtitle}</span>
+                </div>
+
+                <p className="lm-desc">{mod.description}</p>
+
+                <div className="lm-chips">
+                  {mod.features.map((f) => (
+                    <span key={f} className="lm-chip"
+                      style={{ background: mod.chipBg, borderColor: mod.chipBorder, color: mod.chipColor }}>
+                      ✓ {f}
+                    </span>
+                  ))}
+                </div>
+
+                <button
+                  className="lm-btn"
+                  style={{ background: mod.btnBg }}
+                  onClick={(e) => { e.stopPropagation(); navigate(mod.route); }}
+                >
+                  Start {mod.title} →
+                </button>
+              </div>
+            ))}
+          </div>
+
+          <div className="lm-strip">
+            <div className="lm-strip-inner">
+              {[
+                { icon: "🎙️", text: "Speak & Learn" },
+                { icon: "⭐", text: "Earn Stars" },
+                { icon: "📊", text: "Track Progress" },
+                { icon: "🦁", text: "Leo Guides You" },
+              ].map((item) => (
+                <div key={item.text} className="lm-strip-item">
+                  <span>{item.icon}</span>
+                  <span>{item.text}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </>
+  );
 }

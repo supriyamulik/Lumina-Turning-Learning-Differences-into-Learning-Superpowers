@@ -8,10 +8,14 @@ import StudentDashboard from '../pages/StudentDashboard';
 import IslandEntry from '../pages/IslandEntry';
 import Flashcard from '../pages/activities/Flashcard';
 import WordSort from '../pages/activities/WordSort';
+import SpellIt from '../pages/activities/spellit';
 import LearningModule from '../pages/LearningModule';
 import AlphabetModule from '../pages/activities/AlphabetModule';
 import NumberModule from '../pages/activities/NumberModule';
 import ResourceModule from '../pages/ResourceModule';
+import ListenAndFind from '../pages/activities/listenfind';
+import ConsonantCove from '../pages/ConsonantCove';
+
 
 // ── Auth guard ────────────────────────────────────────────────
 const RequireAuth = ({ children }: { children: React.ReactElement }) => {
@@ -40,6 +44,10 @@ export const router = createBrowserRouter([
     { path: '/learning/alphabet', element: guard(<AlphabetModule />) },
     { path: '/learning/numbers', element: guard(<NumberModule />) },
     { path: '/resourcemodule', element: guard(<ResourceModule />) },
+    { path: '/spellit', element: guard(<SpellIt />) },
+    { path: '/listenfind', element: guard(<ListenAndFind />) },
+    { path: '/consonant-cove', element: guard(<ConsonantCove />) },
+
 
     // ── Island flow ──────────────────────────────────────────────
     { path: '/island/:id', element: guard(<IslandEntry />) },

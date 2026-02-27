@@ -13,6 +13,9 @@ import AlphabetModule from '../pages/activities/AlphabetModule';
 import NumberModule from '../pages/activities/NumberModule';
 import ResourceModule from '../pages/ResourceModule';
 
+// Add this import at the top with your other imports
+import TracingGame from '../pages/TracingGame';
+
 // ── Auth guard ────────────────────────────────────────────────
 const RequireAuth = ({ children }: { children: React.ReactElement }) => {
     const token = localStorage.getItem('lumina_token');
@@ -45,4 +48,6 @@ export const router = createBrowserRouter([
     { path: '/island/:id', element: guard(<IslandEntry />) },
     { path: '/island/:id/flashcard', element: guard(<Flashcard />) },
     { path: '/island/:id/word_sort', element: guard(<WordSort />) },
+        // ── Tracing Game ─────────────────────────────────────────────
+    { path: '/tracing-game', element: <TracingGame /> },
 ]);

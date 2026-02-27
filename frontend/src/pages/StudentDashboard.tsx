@@ -4,7 +4,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { studentApi } from '../lib/api';
-import FontToggle from '../components/FontToggle';
 
 // ─── Types ────────────────────────────────────────────────────
 interface IslandProgress {
@@ -54,13 +53,10 @@ const skillColor = (s: number) =>
 // ─── Nav items ────────────────────────────────────────────────
 const NAV_ITEMS = [
     { icon: '🗺️', label: 'My Islands', href: '/dashboard', active: true },
-    { icon: '📖', label: 'Learning Module', href: '/learningmodule', active: true },
-    { icon: '🎯', label: "Today's Quest", href: '/quest', active: false },
-    { icon: '📊', label: 'My Progress', href: '/progress', active: false },
-    { icon: '🏆', label: 'Rewards', href: '/rewards', active: false },
-    { icon: '⚙️', label: 'Settings', href: '/settings', active: false },
+    { icon: '📖', label: 'Learning Cove', href: '/learningModule', active: true },
+    { icon: '📄', label: 'Worksheets', href: '/resourcemodule', active: true },
+    { icon: '🎮', label: 'Games', href: '/games', active: true },
 ];
-
 // ─── Lumina Logo ──────────────────────────────────────────────
 const LuminaLogo: React.FC<{ size?: number; light?: boolean }> = ({ size = 28, light }) => (
     <svg width={size} height={size} viewBox="0 0 40 40" fill="none">
@@ -194,7 +190,7 @@ const StudentDashboard: React.FC = () => {
           --text-mid:   #304838;
           --text-soft:  #6B8876;
           --border:     rgba(45,139,126,0.11);
-          --sidebar-w:  300px;
+          --sidebar-w:  256px;
           --font-ui:    'Lexend', sans-serif;
           --font-h:     'Fraunces', serif;
           --font-read:  'OpenDyslexic', 'Lexend', sans-serif;
@@ -684,14 +680,6 @@ const StudentDashboard: React.FC = () => {
                         </div>
                     </div>
 
-                    {/* Coins */}
-                    <div className="sb-coins">
-                        <span className="sb-coins-icon">☀️</span>
-                        <div>
-                            <div className="sb-coins-label">Sun Coins</div>
-                            <div className="sb-coins-val">{profile.sunCoins}</div>
-                        </div>
-                    </div>
 
                     {/* Nav */}
                     <nav className="sb-nav">
@@ -710,9 +698,8 @@ const StudentDashboard: React.FC = () => {
                         ))}
                     </nav>
 
-                    {/* Footer – sound toggle, font toggle, logout */}
+                    {/* Footer */}
                     <div className="sb-footer">
-                        {/* Sound toggle */}
                         <div className="sb-sound" onClick={() => setMuted(m => !m)}>
                             <span className="sb-nav-icon">{muted ? '🔇' : '🔊'}</span>
                             <span>{muted ? 'Sound off' : 'Sound on'}</span>
@@ -720,13 +707,9 @@ const StudentDashboard: React.FC = () => {
                                 <div className={`sb-toggle-dot${muted ? '' : ' on'}`} />
                             </div>
                         </div>
-
-                        {/* Font toggle – uses same styling */}
-                        <FontToggle />
-
-                        {/* Logout */}
                         <div className="sb-logout" onClick={handleLogout}>
-                            <span className="sb-nav-icon">🚪</span>Log out
+                            <span className="sb-nav-icon">🚪</span>
+                            Log out
                         </div>
                     </div>
 
@@ -886,19 +869,24 @@ const StudentDashboard: React.FC = () => {
                                     </div>
                                 )}
 
-                                {/* Skills card */}
+                                {/* Skills card
+                    Build skill rows from islands[] (always present, always has name+phoneme)
+                    merged with mastery scores — so bars show as soon as any activity is done */}
                                 <div className="card">
                                     <div className="card-head">
                                         <div className="card-title">📊 My Skills</div>
                                     </div>
                                     <div className="skills-body">
                                         {(() => {
+                                            // Build a score lookup from mastery rows
                                             const masteryByIsland: Record<number, number> = {};
                                             for (const m of mastery) {
                                                 if (m.island_id && m.mastery_score > 0) {
                                                     masteryByIsland[m.island_id] = m.mastery_score;
                                                 }
                                             }
+                                            // Also pull from island progress_pct as a fallback
+                                            // (progress.ts always updates this via recomputeIslandProgress)
                                             for (const i of islands) {
                                                 if (!(i.island_id in masteryByIsland) && i.progress_pct > 0) {
                                                     masteryByIsland[i.island_id] = i.progress_pct;
@@ -914,6 +902,7 @@ const StudentDashboard: React.FC = () => {
                                                 );
                                             }
 
+                                            // Show all 5 islands — use islands[] for name/phoneme (always joined)
                                             return islands.map(i => {
                                                 const score = masteryByIsland[i.island_id] ?? 0;
                                                 const name = i.island?.name ?? `Island ${i.island_id}`;
@@ -942,7 +931,7 @@ const StudentDashboard: React.FC = () => {
                                     </div>
                                 </div>
 
-                                {/* Leo message card */}
+                                {/* Leo message card — clean, no floating SVG */}
                                 <div className="leo-card">
                                     <div className="leo-card-inner">
                                         <LeoBadge />

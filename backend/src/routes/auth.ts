@@ -8,6 +8,7 @@ const router = Router();
 // ── Helpers ───────────────────────────────────────────────────
 const generateChildEmail = (name: string, suffix: string) =>
     `child_${name.toLowerCase().replace(/[^a-z0-9]/g, '')}_${suffix}@lumina.app`;
+
 const randomSuffix = () => Math.random().toString(36).substring(2, 6);
 
 // ── POST /api/auth/child/signup ───────────────────────────────

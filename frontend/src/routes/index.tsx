@@ -12,6 +12,7 @@ import LearningModule from '../pages/LearningModule';
 import AlphabetModule from '../pages/activities/AlphabetModule';
 import NumberModule from '../pages/activities/NumberModule';
 import ResourceModule from '../pages/ResourceModule';
+import CameraTracingGame from '../pages/activities/CameraTracingGame';
 
 // ── Auth guard ────────────────────────────────────────────────
 const RequireAuth = ({ children }: { children: React.ReactElement }) => {
@@ -45,4 +46,5 @@ export const router = createBrowserRouter([
     { path: '/island/:id', element: guard(<IslandEntry />) },
     { path: '/island/:id/flashcard', element: guard(<Flashcard />) },
     { path: '/island/:id/word_sort', element: guard(<WordSort />) },
+    { path: '/tracing/camera', element:<CameraTracingGame /> },
 ]);

@@ -1,8 +1,12 @@
+/* src/index.css */
+
+/* OpenDyslexic font faces */
 @font-face {
     font-family: 'OpenDyslexic';
     src: url('/fonts/OpenDyslexic-Regular.otf') format('opentype');
     font-weight: normal;
     font-style: normal;
+    font-display: swap;
 }
 
 @font-face {
@@ -10,43 +14,53 @@
     src: url('/fonts/OpenDyslexic-Bold.otf') format('opentype');
     font-weight: bold;
     font-style: normal;
+    font-display: swap;
 }
 
-/* Add italic/bold-italic if you have those files */
+@font-face {
+    font-family: 'OpenDyslexic';
+    src: url('/fonts/OpenDyslexic-Italic.otf') format('opentype');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
 
+@font-face {
+    font-family: 'OpenDyslexic';
+    src: url('/fonts/OpenDyslexic-BoldItalic.otf') format('opentype');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+/* Tailwind directives */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /* Base font controlled by body class */
 body.font-dyslexic {
-    font-family: 'OpenDyslexic', 'Lexend', sans-serif;
+    font-family: 'OpenDyslexic', 'Lexend', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 body.font-default {
-    font-family: 'Lexend', sans-serif;
+    font-family: 'Lexend', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-/* Reading/learning elements – keep size/spacing, inherit font */
-.reading-text,
-.word-card,
-.phoneme-display,
-.activity-word,
-.story-text {
+/* Ensure all elements inherit the body font */
+* {
+    font-family: inherit;
+}
+
+/* Optional: adjust line-height and spacing for better readability with OpenDyslexic */
+body.font-dyslexic .reading-text,
+body.font-dyslexic .word-card,
+body.font-dyslexic .phoneme-display,
+body.font-dyslexic .activity-word,
+body.font-dyslexic .story-text {
     font-size: 20px;
     line-height: 2.0;
     letter-spacing: 0.05em;
 }
 
-/* Optional: ensure headings and other elements also inherit */
-h1,
-h2,
-h3,
-p,
-button,
-a,
-input,
-label {
-    font-family: inherit;
-    /* they'll get from body */
-}
+/* You can add more specific overrides if needed */

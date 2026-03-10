@@ -15,6 +15,7 @@ import NumberModule from '../pages/activities/NumberModule';
 import ResourceModule from '../pages/ResourceModule';
 import ListenAndFind from '../pages/activities/listenfind';
 import ConsonantCove from '../pages/ConsonantCove';
+import Blending from '../pages/activities/Blending';
 
 
 // ── Auth guard ────────────────────────────────────────────────
@@ -47,7 +48,9 @@ export const router = createBrowserRouter([
     { path: '/spellit', element: guard(<SpellIt />) },
     { path: '/listenfind', element: guard(<ListenAndFind />) },
     { path: '/consonant-cove', element: guard(<ConsonantCove />) },
-
+    { path: '/island/:id/blending', element: guard(<Blending />) },          // ← add
+    { path: '/island/:id/listen_find', element: guard(<ListenAndFind />) }, // ← add
+    { path: '/island/:id/spell_it', element: guard(<SpellIt />) },
 
     // ── Island flow ──────────────────────────────────────────────
     { path: '/island/:id', element: guard(<IslandEntry />) },

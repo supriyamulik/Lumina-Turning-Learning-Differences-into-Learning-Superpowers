@@ -181,6 +181,12 @@ const IslandEntry: React.FC = () => {
         navigate('/dashboard');
     };
 
+    // NEW: Click handler for individual missions
+    const handleMissionClick = (missionKey: string) => {
+        window.speechSynthesis.cancel(); // stop any Leo speech
+        navigate(`/island/${islandId}/${missionKey}`);
+    };
+
     // derive scores
     const bestScores: Record<string, number> = {};
     for (const s of (progress?.scores ?? [])) {
@@ -257,7 +263,8 @@ const IslandEntry: React.FC = () => {
         .ie-board-title { font-family:var(--font-h); font-size:1.05rem; font-weight:700; color:var(--text); display:flex; align-items:center; gap:8px; }
         .ie-board-sub { font-size:12px; font-weight:600; color:var(--text-soft); }
         .ie-mission-list { display:flex; flex-direction:column; gap:9px; }
-        .ie-mission { display:flex; align-items:center; gap:13px; padding:12px 15px; border-radius:15px; border:2px solid transparent; min-height:62px; opacity:0; transform:translateX(-14px); }
+        .ie-mission { display:flex; align-items:center; gap:13px; padding:12px 15px; border-radius:15px; border:2px solid transparent; min-height:62px; opacity:0; transform:translateX(-14px); cursor:pointer; transition:transform 0.15s, border-color 0.15s; }
+        .ie-mission:hover { border-color: var(--ic) !important; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
         .ie-mission.anim { animation:missionIn 0.36s ease both; }
         .ie-mission.done     { background:var(--icp); border-color:var(--ic-border,rgba(45,139,126,0.18)); }
         .ie-mission.upcoming { background:var(--cream2); border-color:var(--border); }
@@ -377,14 +384,19 @@ const IslandEntry: React.FC = () => {
                                         const score = bestScores[m.key];
                                         const done = score !== undefined;
                                         return (
-                                            <div key={m.key}
+                                            <div
+                                                key={m.key}
                                                 className={`ie-mission ${done ? 'done' : 'upcoming'}${missionsShown ? ' anim' : ''}`}
+                                                onClick={() => handleMissionClick(m.key)}
+                                                onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && handleMissionClick(m.key)}
+                                                role="button"
+                                                tabIndex={0}
                                                 style={{
-                                                    animationDelay: missionsShown ? `${idx * 0.09}s` : '0s',
                                                     ['--icp' as any]: island.colorPale,
                                                     ['--ic-border' as any]: island.color + '30',
                                                     ['--ic-icon-bg' as any]: island.color + '1A',
-                                                }}>
+                                                }}
+                                            >
                                                 <div className={`ie-m-icon ${done ? 'done' : 'upcoming'}`}>{m.icon}</div>
                                                 <div className="ie-m-info">
                                                     <div className="ie-m-label">{m.label}</div>
